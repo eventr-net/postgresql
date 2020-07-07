@@ -1,0 +1,20 @@
+version: '3.5'
+services:
+
+  postgres:
+    container_name: eventr-pg
+    image: postgres:11-alpine
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=Password12!
+      - POSTGRES_DB=eventr
+    networks:
+      - eventr_network
+    # This should open psql shell (in interactive container linked to eventr-pg):
+    # > docker run -it --rm --net eventr_network --link eventr-pg:pg -e PGPASSWORD=Password12! postgres:11-alpine psql -h pg -p 5432 -U postgres -d eventr
+
+networks:
+  eventr_network:
+    name: eventr_network
